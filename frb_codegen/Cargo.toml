@@ -55,6 +55,7 @@ notify-debouncer-mini = "0.4.1"
 cargo_toml = "0.21.0"
 hex = "0.4.3"
 sha1 = "0.10.6"
+dunce = "1.0"
 
 [dev-dependencies]
 pretty_assertions = "1.4.0"

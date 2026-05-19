@@ -11,7 +11,10 @@ pub(crate) fn compute_mod_from_rust_crate_path(
 
 fn compute_mod_from_path(code_path: &Path, base_dir: &Path) -> anyhow::Result<String> {
     (|| -> anyhow::Result<String> {
-        let p = code_path.strip_prefix(base_dir)?.with_extension("");
+        // 使用 dunce::simplified 去除 Windows 的 \\?\ 前缀，确保路径比较正确
+        let code = dunce::simplified(code_path);
+        let base = dunce::simplified(base_dir);
+        let p = code.strip_prefix(base)?.with_extension("");
         Ok(path_to_string(&p)?.replace(['/', '\\'], "::"))
     })()
     .with_context(|| {

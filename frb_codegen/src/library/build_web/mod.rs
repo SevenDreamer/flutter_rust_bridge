@@ -10,7 +10,7 @@ use itertools::Itertools;
 use log::debug;
 use std::path::{Path, PathBuf};
 use std::process::{Command, ExitStatus};
-use std::{env, fs};
+use std::env;
 
 // We make the core build-web logic in Dart, and Rust is just a wrapper.
 // This is because, in the future, the build-web logic may be packaged with user libraries
@@ -27,7 +27,7 @@ pub fn build(
 
 fn parse_dart_root(dart_root: Option<PathBuf>) -> anyhow::Result<PathBuf> {
     dart_root
-        .map(|x| Ok(fs::canonicalize(x)?))
+        .map(|x| dunce::canonicalize(&x).context("Failed to canonicalize dart-root"))
         .unwrap_or_else(|| {
             find_dart_package_dir(&env::current_dir()?)
                 .context("Please provide --dart-root, or run command inside a Flutter/Dart package")

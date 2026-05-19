@@ -92,6 +92,6 @@ pub(crate) fn cbindgen_raw(
 }
 
 fn parse_crate_dir(rust_crate_dir: &Path) -> anyhow::Result<String> {
-    let canonical_path = Path::new(rust_crate_dir).canonicalize()?;
+    let canonical_path = dunce::canonicalize(rust_crate_dir)?;
     Ok(normalize_windows_unc_path(canonical_path.to_str().unwrap()).to_owned())
 }

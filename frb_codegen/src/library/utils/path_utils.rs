@@ -56,7 +56,7 @@ pub(crate) fn normalize_windows_unc_path(path: &str) -> &str {
 }
 
 pub(crate) fn canonicalize_with_error_message(path: &Path) -> Result<PathBuf> {
-    path.canonicalize()
+    dunce::canonicalize(path)
         .with_context(|| format!("Fail to canonicalize path={path:?}"))
 }
 
