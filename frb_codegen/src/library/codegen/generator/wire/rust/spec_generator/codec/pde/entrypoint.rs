@@ -106,7 +106,7 @@ pub(crate) fn generate_ffi_dispatcher_raw(
 
             format!(
                 "
-                fn pde_ffi_dispatcher_{name}_impl(
+                pub fn pde_ffi_dispatcher_{name}_impl(
                     func_id: i32,{maybe_port}
                     ptr: {crate_name}::for_generated::PlatformGeneralizedUint8ListPtr,
                     rust_vec_len: i32,

@@ -202,8 +202,35 @@ fn generate_boilerplate(
                     default_rust_opaque = RustOpaque{default_rust_opaque_codec},
                     default_rust_auto_opaque = RustAutoOpaque{default_rust_opaque_codec},
                 );
-                pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_VERSION: &str = "{version}";
-                pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = {content_hash};
+                pub const FLUTTER_RUST_BRIDGE_CODEGEN_VERSION: &str = "{version}";
+                pub const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = {content_hash};
+
+                // FFI exports for Flutter FFI
+                #[no_mangle]
+                pub extern "C" fn frb_get_rust_content_hash() -> i32 {{
+                    FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH
+                }}
+
+                #[no_mangle]
+                pub extern "C" fn frb_pde_ffi_dispatcher_primary(
+                    func_id: i32,
+                    port: flutter_rust_bridge::for_generated::MessagePort,
+                    ptr: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+                    rust_vec_len: i32,
+                    data_len: i32,
+                ) {{
+                    frb_pde_ffi_dispatcher_primary_impl(func_id, port, ptr, rust_vec_len, data_len)
+                }}
+
+                #[no_mangle]
+                pub extern "C" fn frb_pde_ffi_dispatcher_sync(
+                    func_id: i32,
+                    ptr: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+                    rust_vec_len: i32,
+                    data_len: i32,
+                ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartSse {{
+                    frb_pde_ffi_dispatcher_sync_impl(func_id, ptr, rust_vec_len, data_len)
+                }}
             "#,
                 version = env!("CARGO_PKG_VERSION"),
             )
