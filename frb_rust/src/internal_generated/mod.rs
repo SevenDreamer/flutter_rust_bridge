@@ -5,7 +5,7 @@
 macro_rules! frb_generated_io_extern_func {
     () => {
         #[unsafe(no_mangle)]
-        pub extern "C" fn frb_pde_ffi_dispatcher_primary(
+        pub extern "C" fn pde_ffi_dispatcher_primary(
             func_id: i32,
             port_: i64,
             ptr_: *mut u8,
@@ -16,7 +16,7 @@ macro_rules! frb_generated_io_extern_func {
         }
 
         #[unsafe(no_mangle)]
-        pub extern "C" fn frb_pde_ffi_dispatcher_sync(
+        pub extern "C" fn pde_ffi_dispatcher_sync(
             func_id: i32,
             ptr_: *mut u8,
             rust_vec_len_: i32,
@@ -26,7 +26,7 @@ macro_rules! frb_generated_io_extern_func {
         }
 
         #[unsafe(no_mangle)]
-        pub extern "C" fn frb_dart_fn_deliver_output(
+        pub extern "C" fn dart_fn_deliver_output(
             call_id: i32,
             ptr_: *mut u8,
             rust_vec_len_: i32,
@@ -49,7 +49,7 @@ macro_rules! frb_generated_io_extern_func {
 macro_rules! frb_generated_web_extern_func {
     () => {
         #[wasm_bindgen]
-        pub fn frb_pde_ffi_dispatcher_primary(
+        pub fn pde_ffi_dispatcher_primary(
             func_id: i32,
             port_: $crate::for_generated::MessagePort,
             ptr_: $crate::for_generated::PlatformGeneralizedUint8ListPtr,
@@ -60,7 +60,7 @@ macro_rules! frb_generated_web_extern_func {
         }
 
         #[wasm_bindgen]
-        pub fn frb_pde_ffi_dispatcher_sync(
+        pub fn pde_ffi_dispatcher_sync(
             func_id: i32,
             ptr_: $crate::for_generated::PlatformGeneralizedUint8ListPtr,
             rust_vec_len_: i32,
@@ -70,7 +70,7 @@ macro_rules! frb_generated_web_extern_func {
         }
 
         #[wasm_bindgen]
-        pub fn frb_dart_fn_deliver_output(
+        pub fn dart_fn_deliver_output(
             call_id: i32,
             ptr_: $crate::for_generated::PlatformGeneralizedUint8ListPtr,
             rust_vec_len_: i32,

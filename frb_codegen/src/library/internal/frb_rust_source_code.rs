@@ -92,7 +92,7 @@ fn generate_target_pde_dispatcher_mode(target: Target, mode: FfiDispatcherMode) 
     };
 
     ExternFunc {
-        partial_func_name: format!("frb_{partial_func_name}"),
+        partial_func_name: partial_func_name.clone(),
         params,
         return_type,
         body,
